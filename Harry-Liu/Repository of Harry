@@ -1,0 +1,27 @@
+d = ( diag(ones(N-1,1),1) + diag(ones(N-1,1),-1)) / dx / 2;
+d(1, 1) = 0;
+d(1, 2) = 0;
+d(N,N-1) = 1/dx;
+d(N,N) = -1/dx;
+Lap = ( diag(ones(N-1,1),1)+(-2)*diag(ones(N,1),0)+diag(ones(N-1,1),-1)) / (dx ^ 2);
+Lap(1,1) = 0; Lap(1,2) = 0; Lap(2,1) = 0; 
+Lap(N,N) = 0; Lap(N,N-1) = 0; Lap(N-1,N) = 0;
+
+hbar = 1;
+m = 1;
+Omega = 1
+Ox = diag(x,0);
+H = -(1/2)*(hbar^2/m)*Lap + 100*Ox*Ox*Ox*Ox;
+[V, E] = eig(H);
+
+c1 = 0
+c2 = 3
+c3 = 5
+c4 = 7
+c5 = 3
+
+hold off
+for i=1:5
+  psi = c1*V(:, 3) + c2*V(:, 4) + c3*V(:, 5) + c4*V(:, 6) + c5*V(:, 7); 
+  plot(abs(psi))
+endfor
